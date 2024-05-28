@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: check-bus
+
+dauth:
+  client-id: ${key.dauth.client-id}
+  client-secret: ${key.dauth.client-secret}
