@@ -12,3 +12,5 @@ dauth:
   client-id: ${key.dauth.client-id}
   client-secret: ${key.dauth.client-secret}
 
+jwt:
+  secret-key: ${key.jwt.secret-key}

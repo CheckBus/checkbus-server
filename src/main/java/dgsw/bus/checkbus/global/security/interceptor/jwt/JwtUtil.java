@@ -18,7 +18,7 @@ import java.util.Date;
 @RequiredArgsConstructor
 public class JwtUtil {
 
-    @Value("${product.jwt-secret-key}")
+    @Value("${jwt.secret-key}")
     private String SECRET_KEY;
 
     private static final Long ACCESS_TOKEN_EXPIRE_TIME = 1000L * 3600 * 24; // 24시간
