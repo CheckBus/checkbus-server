@@ -1,7 +1,14 @@
 spring:
   application:
     name: check-bus
+  config:
+    import: ${key.env.path}
+  datasource:
+    url: ${key.datasource.url}
+    username: ${key.datasource.username}
+    password: ${key.datasource.password}
 
 dauth:
   client-id: ${key.dauth.client-id}
   client-secret: ${key.dauth.client-secret}
+
