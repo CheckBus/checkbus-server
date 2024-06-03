@@ -1,10 +1,10 @@
-package dgsw.bus.checkbus.global.security.interceptor;
+package dgsw.bus.checkbus.global.interceptor;
 
 import dgsw.bus.checkbus.global.annotation.NeedAccess;
 import dgsw.bus.checkbus.global.exception.BackendException;
 import dgsw.bus.checkbus.global.exception.ExceptionCode;
-import dgsw.bus.checkbus.global.security.interceptor.jwt.JwtUtil;
-import dgsw.bus.checkbus.global.security.interceptor.jwt.TokenType;
+import dgsw.bus.checkbus.global.interceptor.jwt.JwtUtil;
+import dgsw.bus.checkbus.global.interceptor.jwt.TokenType;
 import dgsw.bus.checkbus.user.adapter.in.dto.token.AccessTokenDto;
 import dgsw.bus.checkbus.user.domain.User;
 import jakarta.servlet.http.HttpServletRequest;

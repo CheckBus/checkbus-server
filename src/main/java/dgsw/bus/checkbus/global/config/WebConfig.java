@@ -1,6 +1,6 @@
 package dgsw.bus.checkbus.global.config;
 
-import dgsw.bus.checkbus.global.security.interceptor.RequestInterceptor;
+import dgsw.bus.checkbus.global.interceptor.RequestInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

@@ -1,4 +1,4 @@
-package dgsw.bus.checkbus.global.security.interceptor.jwt;
+package dgsw.bus.checkbus.global.interceptor.jwt;
 
 import dgsw.bus.checkbus.global.exception.BackendException;
 import dgsw.bus.checkbus.global.exception.ExceptionCode;

@@ -14,10 +14,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@WebAdapter(path = "Auth-Controller")
-@RestController
+@WebAdapter(path = "/v1/auth")
 @RequiredArgsConstructor
-@RequestMapping("/auth")
 public class AuthController {
     @Value("${dauth.client-id}")
     private String clientId;
