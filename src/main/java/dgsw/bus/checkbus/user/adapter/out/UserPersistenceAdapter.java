@@ -3,6 +3,7 @@ package dgsw.bus.checkbus.user.adapter.out;
 import dgsw.bus.checkbus.global.annotation.PersistenceAdapter;
 import dgsw.bus.checkbus.global.exception.BackendException;
 import dgsw.bus.checkbus.global.exception.ExceptionCode;
+import dgsw.bus.checkbus.global.http.request.RequestRestTemplate;
 import dgsw.bus.checkbus.global.interceptor.jwt.JwtUtil;
 import dgsw.bus.checkbus.user.adapter.in.dto.token.*;
 import dgsw.bus.checkbus.user.adapter.out.entity.UserEntity;
@@ -30,25 +31,26 @@ public class UserPersistenceAdapter implements ManipulateUserPort, ReadUserPort 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final JwtUtil jwtUtil;
-    private final RestTemplate restTemplate = new RestTemplate();
-
-    @Override
-    public void registerUser() {
-    }
-
-    @Override
-    @Transactional
-    public void updateUser(User user) {
-        UserEntity entity = userRepository.findByEmail(user.getEmail());
-        if (entity != null) userRepository.save(entity);
-        else userRepository.save(userMapper.toEntity(user));
-    }
+    private final RequestRestTemplate restTemplate;
 
     @Value("${dauth.client-url}")
     private String dauthUrl;
 
     @Value("${dauth.open-dodam-url}")
     private String dodamOpenApiUrl;
+
+    @Override
+    public void registerUser() {
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void updateUser(User user) {
+        UserEntity entity = userRepository.findByEmail(user.getEmail());
+        if (entity != null) userRepository.save(entity);
+        else userRepository.save(userMapper.toEntity(user));
+    }
+
     @Override
     public TokenResponseDto getToken(DAuthApiRequestDto dAuthApiRequestDto) {
         HttpHeaders headers = new HttpHeaders();

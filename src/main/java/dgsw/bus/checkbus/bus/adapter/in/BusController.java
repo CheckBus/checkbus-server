@@ -18,11 +18,11 @@ import org.springframework.web.bind.annotation.*;
 public class BusController {
     private final BusUseCase busUseCase;
 
-    @Operation(summary = "Bus 열기")
-    @PostMapping("/open")
-    public ResponseEntity<DataResponse<String>> openBus(@RequestParam String busCode){
-        String hash = busUseCase.generateBusQR(busCode);
-        return DataResponse.ok("성공", hash);
+    @Operation(summary = "도담 Bus 가져오기")
+    @PostMapping("/reload")
+    public ResponseEntity<DataResponse<String>> loadBus() {
+        busUseCase.reloadBus();
+        return DataResponse.ok("성공", "");
     }
     @Operation(summary = "Bus QR 가져오기")
     @GetMapping("/get-qr")

@@ -5,6 +5,7 @@ import dgsw.bus.checkbus.user.domain.StdInfo;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,6 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "bus")
+@Builder
 public class BusEntity {
     @Id
     @NotNull

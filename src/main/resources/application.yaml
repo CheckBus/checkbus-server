@@ -8,6 +8,8 @@ spring:
     username: ${key.datasource.username}
     password: ${key.datasource.password}
 
+dodam-api-url: ${key.dodam-api-url}
+
 dauth:
   client-url: ${key.dauth.client-url}
   open-dodam-url: ${key.dauth.open-dodam-url}
