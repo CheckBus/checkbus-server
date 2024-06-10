@@ -9,6 +9,8 @@ spring:
     password: ${key.datasource.password}
 
 dauth:
+  client-url: ${key.dauth.client-url}
+  open-dodam-url: ${key.dauth.open-dodam-url}
   client-id: ${key.dauth.client-id}
   client-secret: ${key.dauth.client-secret}
 

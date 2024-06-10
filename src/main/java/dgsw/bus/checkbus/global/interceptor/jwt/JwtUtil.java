@@ -2,6 +2,8 @@ package dgsw.bus.checkbus.global.interceptor.jwt;
 
 import dgsw.bus.checkbus.global.exception.BackendException;
 import dgsw.bus.checkbus.global.exception.ExceptionCode;
+import dgsw.bus.checkbus.user.adapter.out.mapper.UserMapper;
+import dgsw.bus.checkbus.user.adapter.out.repository.UserRepository;
 import dgsw.bus.checkbus.user.application.port.out.ReadUserPort;
 import dgsw.bus.checkbus.user.domain.User;
 import io.jsonwebtoken.*;
@@ -18,13 +20,14 @@ import java.util.Date;
 @RequiredArgsConstructor
 public class JwtUtil {
 
+    private final UserRepository userRepository;
+    private final UserMapper userMapper;
+
     @Value("${jwt.secret-key}")
     private String SECRET_KEY;
 
     private static final Long ACCESS_TOKEN_EXPIRE_TIME = 1000L * 3600 * 24; // 24시간
     private static final Long REFRESH_TOKEN_EXPIRE_TIME = 1000L * 3600 * 24 * 3; // 3일
-
-    private final ReadUserPort readUserPort;
 
     private Key getSignKey(String secretKey) {
         byte[] keyBytes = secretKey.getBytes(StandardCharsets.UTF_8);
@@ -81,6 +84,6 @@ public class JwtUtil {
     }
 
     public User getUserByToken(String token) {
-        return readUserPort.getUserByEmail(extractAllClaims(token).get("email").toString());
+        return userMapper.toUser(userRepository.findByEmail(extractAllClaims(token).get("email").toString()));
     }
 }

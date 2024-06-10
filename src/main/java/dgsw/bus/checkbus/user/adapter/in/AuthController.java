@@ -25,8 +25,9 @@ public class AuthController {
     private final AuthUseCase authUseCase;
 
     @Operation(summary = "Token 받기")
-    @PostMapping("/code")
-    public ResponseEntity<DataResponse<TokenResponseDto>> resCode(@RequestBody DAuthClientRequestDto dAuthClientRequestDto){
+    @GetMapping("/code")
+    public ResponseEntity<DataResponse<TokenResponseDto>> resCode(@RequestParam String code){
+        DAuthClientRequestDto dAuthClientRequestDto = new DAuthClientRequestDto(code);
         TokenResponseDto token = authUseCase.getToken(new DAuthApiRequestDto(dAuthClientRequestDto.getCode(), clientId, clientSecret));
         return DataResponse.ok("인증 성공", token);
     }
