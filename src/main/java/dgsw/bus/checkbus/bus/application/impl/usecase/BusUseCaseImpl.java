@@ -40,9 +40,6 @@ public class BusUseCaseImpl implements BusUseCase {
 
     @Override
     public void reloadBus() {
-        HttpHeaders headers = new HttpHeaders();
-        Map<String, String> data = new HashMap<String, String>();
-
         try {
             DodamBusListRequestDto dodamBusListRequestDto =
                     restTemplate.getForEntity(dodamApiUrl + "/bus", DodamBusListRequestDto.class).getBody();

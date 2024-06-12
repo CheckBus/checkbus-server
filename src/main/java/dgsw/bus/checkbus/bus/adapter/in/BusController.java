@@ -22,7 +22,7 @@ public class BusController {
     @NeedAccess
     @Operation(summary = "도담 Bus 가져오기")
     @PostMapping("/reload")
-    public ResponseEntity<DataResponse<String>> loadBus() {
+    public ResponseEntity<DataResponse<String>> loadBus(@RequestHeader("Authorization") String authorization) {
         busUseCase.reloadBus();
         return DataResponse.ok("성공", "");
     }
