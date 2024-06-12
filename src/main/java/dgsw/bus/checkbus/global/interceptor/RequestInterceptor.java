@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import java.util.Arrays;
 import java.util.Enumeration;
 
 @Component
@@ -41,6 +42,19 @@ public class RequestInterceptor implements HandlerInterceptor {
 
             TokenType tokenType = jwtUtil.checkTokenType(token);
             User user = jwtUtil.getUserByToken(token);
+
+            if (
+                ! Arrays.stream(
+                    handlerMethod
+                        .getMethod()
+                        .getAnnotation(NeedAccess.class)
+                        .access()
+                )
+                    .toList()
+                        .contains(user.getRoles())
+            ) {
+                throw BackendException.of(ExceptionCode.PERMISSION_DENIED);
+            }
 
             if (checkTokenType(request, tokenType, user) == true) {
                 return true;

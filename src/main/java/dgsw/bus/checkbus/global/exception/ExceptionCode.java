@@ -17,6 +17,7 @@ public enum ExceptionCode {
     INVALID_TOKEN(HttpStatus.FORBIDDEN, "유효하지 않은 토큰"),
     TOKEN_NOT_PROVIDED(HttpStatus.UNAUTHORIZED, "토큰이 입력되지 않았습니다"),
     TOKEN_EXPIRED(HttpStatus.UNAUTHORIZED, "만료된 토큰"),
+    PERMISSION_DENIED(HttpStatus.FORBIDDEN, "권한 부족"),
     PARAMETER_IS_BAD(HttpStatus.BAD_REQUEST, "파라미터가 잘못됐습니다");
 
     private final HttpStatus httpStatus;
