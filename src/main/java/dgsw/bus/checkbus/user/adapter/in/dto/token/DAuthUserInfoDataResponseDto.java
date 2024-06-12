@@ -18,6 +18,7 @@ public class DAuthUserInfoDataResponseDto {
     private String name;
     private String profileImage;
     private String email;
+    private String role;
 
     public User toEntity(){
         return User.builder()
@@ -25,7 +26,7 @@ public class DAuthUserInfoDataResponseDto {
                 .email(email)
                 .profileImage(profileImage)
                 .stdInfo(new StdInfo(grade, room, number))
-                .roles(Roles.USER)
+                .roles(Roles.valueOf(role))
                 .build();
     }
 

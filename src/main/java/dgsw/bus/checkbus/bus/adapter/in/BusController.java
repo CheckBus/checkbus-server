@@ -8,6 +8,7 @@ import dgsw.bus.checkbus.user.adapter.in.dto.token.DAuthApiRequestDto;
 import dgsw.bus.checkbus.user.adapter.in.dto.token.DAuthClientRequestDto;
 import dgsw.bus.checkbus.user.adapter.in.dto.token.TokenResponseDto;
 import dgsw.bus.checkbus.user.application.port.in.AuthUseCase;
+import dgsw.bus.checkbus.user.domain.Roles;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 public class BusController {
     private final BusUseCase busUseCase;
 
-    @NeedAccess
+    @NeedAccess(access = Roles.USER)
     @Operation(summary = "도담 Bus 가져오기")
     @PostMapping("/reload")
     public ResponseEntity<DataResponse<String>> loadBus(@RequestHeader("Authorization") String authorization) {
@@ -27,7 +28,7 @@ public class BusController {
         return DataResponse.ok("성공", "");
     }
 
-    @NeedAccess
+    @NeedAccess(access = Roles.USER)
     @Operation(summary = "Bus QR 가져오기")
     @GetMapping("/get-qr")
     public ResponseEntity<byte[]> getQR(@RequestParam String busCode){
