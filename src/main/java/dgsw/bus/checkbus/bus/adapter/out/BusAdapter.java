@@ -34,21 +34,24 @@ public class BusAdapter implements ManipulateBusPort, ReadBusPort {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void registerBus(DodamBusListRequestDto dodamBusListRequestDto) {
-        busRepository.deleteAll();
         for (DodamBusDto bus: dodamBusListRequestDto.getData()) {
-            busRepository.save(
-                BusEntity.builder()
-                    .busCode(bus.getId())
-                    .busName(bus.getBusName())
-                    .hashCode(generateHash())
-                    .limit(bus.getPeopleLimit())
-                    .build()
-            );
+            if (busRepository.findByBusCode(bus.getId()) == null) {
+                busRepository.save(
+                    BusEntity.builder()
+                        .busCode(bus.getId())
+                        .busName(bus.getBusName())
+                        .hashCode(generateHash())
+                        .limit(bus.getPeopleLimit())
+                        .build()
+                );
+            }
             for (DodamMemberDto member: bus.getMembers()) {
                 entryRepository.save(
                     EntryEntity.builder()
                         .busCode(bus.getId())
                         .userId(member.getMemberId())
+                        .isSubscription(true)
+                        .isTake(false)
                         .build()
                 );
             }
