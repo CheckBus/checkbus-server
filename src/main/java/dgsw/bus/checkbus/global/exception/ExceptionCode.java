@@ -10,6 +10,7 @@ public enum ExceptionCode {
     NOT_FOUND(HttpStatus.NOT_FOUND, "찾을 수 없습니다"),
     WRONG_QR(HttpStatus.BAD_REQUEST, "QR을 생성할 수 없음"),
     WRONG_BUS(HttpStatus.BAD_REQUEST, "버스 정보를 가져올 수 없음"),
+    BUS_FULL(HttpStatus.BAD_REQUEST, "버스가 가득 찼습니다"),
     WRONG_FILE(HttpStatus.BAD_REQUEST, "잘못된 파일 확장자"),
     S3_WRONG_FILE(HttpStatus.BAD_REQUEST, "파일을 찾을 수 없음"),
     WRONG_USER(HttpStatus.FORBIDDEN, "잘못된 사용자"),

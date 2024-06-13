@@ -7,6 +7,8 @@ import dgsw.bus.checkbus.bus.adapter.out.repository.BusRepository;
 import dgsw.bus.checkbus.bus.adapter.out.repository.EntryRepository;
 import dgsw.bus.checkbus.bus.application.port.out.ManipulateEntryPort;
 import dgsw.bus.checkbus.global.annotation.PersistenceAdapter;
+import dgsw.bus.checkbus.global.exception.BackendException;
+import dgsw.bus.checkbus.global.exception.ExceptionCode;
 import dgsw.bus.checkbus.user.domain.User;
 import lombok.RequiredArgsConstructor;
 
@@ -29,6 +31,8 @@ public class EntryAdapter implements ManipulateEntryPort {
                     .isTake(true)
                     .build()
             );
+        } else {
+            throw BackendException.of(ExceptionCode.BUS_FULL);
         }
     }
 }
