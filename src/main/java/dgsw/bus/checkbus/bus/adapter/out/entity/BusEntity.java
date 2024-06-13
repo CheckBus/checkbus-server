@@ -19,6 +19,8 @@ public class BusEntity {
     @Id
     @NotNull
     @Column(name = "bus_code")
-    private String busCode;
+    private Long busCode;
+    private String busName;
     private String hashCode;
+    private int limit;
 }

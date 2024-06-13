@@ -6,6 +6,7 @@ import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import dgsw.bus.checkbus.bus.adapter.in.dto.DodamBusListRequestDto;
+import dgsw.bus.checkbus.bus.adapter.in.dto.TakeBusDto;
 import dgsw.bus.checkbus.bus.adapter.out.entity.BusEntity;
 import dgsw.bus.checkbus.bus.application.port.in.BusUseCase;
 import dgsw.bus.checkbus.bus.application.port.out.ManipulateBusPort;
@@ -16,6 +17,7 @@ import dgsw.bus.checkbus.global.exception.ExceptionCode;
 import dgsw.bus.checkbus.global.http.request.RequestRestTemplate;
 import dgsw.bus.checkbus.user.adapter.in.dto.token.DAuthTokenResponseDto;
 import dgsw.bus.checkbus.user.adapter.in.dto.token.TokenResponseDto;
+import dgsw.bus.checkbus.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -51,7 +53,7 @@ public class BusUseCaseImpl implements BusUseCase {
     }
 
     @Override
-    public byte[] getBusQR(String busCode) {
+    public byte[] getBusQR(Long busCode) {
         BusEntity entity = readBusPort.getBus(busCode);
         try {
             BitMatrix encode = new MultiFormatWriter().encode(
@@ -71,11 +73,11 @@ public class BusUseCaseImpl implements BusUseCase {
     }
 
     @Override
-    public boolean checkBusQR(String busCode, String hash) {
+    public boolean checkBusQR(TakeBusDto takeBusDto, User user) {
         return false;
     }
     @Override
-    public void closeBus(String busCode) {
+    public void closeBus(Long busCode) {
         manipulateBusPort.removeBus(busCode);
     }
 }

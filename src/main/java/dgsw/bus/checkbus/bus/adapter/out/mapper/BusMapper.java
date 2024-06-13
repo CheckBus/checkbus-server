@@ -11,14 +11,18 @@ public class BusMapper {
     public Bus toBus(BusEntity entity) {
         return new Bus(
             entity.getBusCode(),
-            entity.getHashCode()
+            entity.getBusName(),
+            entity.getHashCode(),
+            entity.getLimit()
         );
     }
 
     public BusEntity toEntity(Bus bus) {
         return new BusEntity(
             bus.getBusCode(),
-            bus.getHashCode()
+            bus.getBusName(),
+            bus.getHashCode(),
+            bus.getLimit()
         );
     }
 }

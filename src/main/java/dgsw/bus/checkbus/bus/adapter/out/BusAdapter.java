@@ -34,8 +34,10 @@ public class BusAdapter implements ManipulateBusPort, ReadBusPort {
         for (DodamBusDto bus: dodamBusListRequestDto.getData()) {
             busRepository.save(
                 BusEntity.builder()
-                    .busCode(bus.getBusName())
+                    .busCode(bus.getId())
+                    .busName(bus.getBusName())
                     .hashCode(generateHash())
+                    .limit(bus.getPeopleLimit())
                     .build()
             );
         }
@@ -43,12 +45,12 @@ public class BusAdapter implements ManipulateBusPort, ReadBusPort {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void removeBus(String busCode) {
+    public void removeBus(Long busCode) {
         busRepository.deleteByBusCode(busCode);
     }
 
     @Override
-    public BusEntity getBus(String busCode) {
+    public BusEntity getBus(Long busCode) {
         return busRepository.findByBusCode(busCode);
     }
 

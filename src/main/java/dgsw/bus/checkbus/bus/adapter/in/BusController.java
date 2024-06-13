@@ -1,5 +1,6 @@
 package dgsw.bus.checkbus.bus.adapter.in;
 
+import dgsw.bus.checkbus.bus.adapter.in.dto.TakeBusDto;
 import dgsw.bus.checkbus.bus.application.port.in.BusUseCase;
 import dgsw.bus.checkbus.global.annotation.NeedAccess;
 import dgsw.bus.checkbus.global.annotation.WebAdapter;
@@ -32,7 +33,7 @@ public class BusController {
     @NeedAccess(access = Roles.TEACHER)
     @Operation(summary = "Bus QR 가져오기")
     @GetMapping("/get-qr")
-    public ResponseEntity<byte[]> getQR(@RequestParam String busCode){
+    public ResponseEntity<byte[]> getQR(@RequestParam Long busCode){
         return ResponseEntity.ok()
                 .contentType(MediaType.IMAGE_PNG)
                 .body(busUseCase.getBusQR(busCode));
@@ -42,17 +43,17 @@ public class BusController {
     @Operation(summary = "Bus 탑승 요청하기")
     @PostMapping("/take-bus")
     public ResponseEntity<DataResponse<String>> takeBus(
-            @RequestParam String busCode,
-            @RequestParam String hashCode,
+            @RequestBody TakeBusDto takeBusDto,
             @RequestAttribute User user
             ) {
+        busUseCase.checkBusQR(takeBusDto, user);
         return DataResponse.ok("탑승 완료", "");
     }
 
     @NeedAccess(access = Roles.TEACHER)
     @Operation(summary = "Bus 닫기")
     @DeleteMapping("/close")
-    public ResponseEntity<DataResponse<String>> closeBus(@RequestParam String busCode){
+    public ResponseEntity<DataResponse<Long>> closeBus(@RequestParam Long busCode){
         busUseCase.closeBus(busCode);
         return DataResponse.ok("성공", busCode);
     }

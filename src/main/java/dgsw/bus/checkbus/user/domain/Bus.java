@@ -6,6 +6,8 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class Bus {
-    private String busCode;
+    private Long busCode;
+    private String busName;
     private String hashCode;
+    private int limit;
 }
