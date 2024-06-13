@@ -7,8 +7,11 @@ import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import dgsw.bus.checkbus.bus.adapter.in.dto.DodamBusDto;
 import dgsw.bus.checkbus.bus.adapter.in.dto.DodamBusListRequestDto;
+import dgsw.bus.checkbus.bus.adapter.in.dto.DodamMemberDto;
 import dgsw.bus.checkbus.bus.adapter.out.entity.BusEntity;
+import dgsw.bus.checkbus.bus.adapter.out.entity.EntryEntity;
 import dgsw.bus.checkbus.bus.adapter.out.repository.BusRepository;
+import dgsw.bus.checkbus.bus.adapter.out.repository.EntryRepository;
 import dgsw.bus.checkbus.bus.application.port.out.ManipulateBusPort;
 import dgsw.bus.checkbus.bus.application.port.out.ReadBusPort;
 import dgsw.bus.checkbus.global.annotation.PersistenceAdapter;
@@ -26,6 +29,7 @@ import java.util.Random;
 @RequiredArgsConstructor
 public class BusAdapter implements ManipulateBusPort, ReadBusPort {
     private final BusRepository busRepository;
+    private final EntryRepository entryRepository;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -40,6 +44,14 @@ public class BusAdapter implements ManipulateBusPort, ReadBusPort {
                     .limit(bus.getPeopleLimit())
                     .build()
             );
+            for (DodamMemberDto member: bus.getMembers()) {
+                entryRepository.save(
+                    EntryEntity.builder()
+                        .busCode(bus.getId())
+                        .userId(member.getMemberId())
+                        .build()
+                );
+            }
         }
     }
 

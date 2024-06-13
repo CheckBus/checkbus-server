@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class DodamBusListRequestDto {
+public class    DodamBusListRequestDto {
     private String message;
     private List<DodamBusDto> data;
 }

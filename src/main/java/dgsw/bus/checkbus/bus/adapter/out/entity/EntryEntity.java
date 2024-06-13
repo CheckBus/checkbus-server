@@ -17,7 +17,7 @@ public class EntryEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idx;
     private Long busCode;
-    private Long userId;
+    private String userId;
     private Boolean isSubscription;
     private Boolean isTake;
 }

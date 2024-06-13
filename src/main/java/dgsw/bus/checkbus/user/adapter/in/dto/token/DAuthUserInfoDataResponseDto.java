@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DAuthUserInfoDataResponseDto {
-
+    private String uniqueId;
     private int grade;
     private int room;
     private int number;
@@ -22,6 +22,7 @@ public class DAuthUserInfoDataResponseDto {
 
     public User toEntity(){
         return User.builder()
+                .id(uniqueId)
                 .name(name)
                 .email(email)
                 .profileImage(profileImage)

@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
+
 @Data
 @RequiredArgsConstructor
 public class DodamBusDto {
@@ -14,4 +16,5 @@ public class DodamBusDto {
     private int applyCount;
     private String leaveTime;
     private String timeRequired;
+    private List<DodamMemberDto> members;
 }

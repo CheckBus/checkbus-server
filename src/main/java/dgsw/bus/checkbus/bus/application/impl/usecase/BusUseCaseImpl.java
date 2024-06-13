@@ -10,6 +10,7 @@ import dgsw.bus.checkbus.bus.adapter.in.dto.TakeBusDto;
 import dgsw.bus.checkbus.bus.adapter.out.entity.BusEntity;
 import dgsw.bus.checkbus.bus.application.port.in.BusUseCase;
 import dgsw.bus.checkbus.bus.application.port.out.ManipulateBusPort;
+import dgsw.bus.checkbus.bus.application.port.out.ManipulateEntryPort;
 import dgsw.bus.checkbus.bus.application.port.out.ReadBusPort;
 import dgsw.bus.checkbus.global.annotation.UseCase;
 import dgsw.bus.checkbus.global.exception.BackendException;
@@ -22,10 +23,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.web.client.HttpClientErrorException;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -35,16 +40,28 @@ import java.util.Random;
 public class BusUseCaseImpl implements BusUseCase {
     private final ManipulateBusPort manipulateBusPort;
     private final ReadBusPort readBusPort;
+    private final ManipulateEntryPort manipulateEntryPort;
     private final RequestRestTemplate restTemplate;
 
     @Value("${dodam-api-url}")
     private String dodamApiUrl;
 
     @Override
-    public void reloadBus() {
+    public void reloadBus(String jwt) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", jwt);
+        HttpEntity<String> entity = new HttpEntity<>(headers);
         try {
+            LocalDate date = LocalDate.now(ZoneId.of("Asia/Seoul"));
+            String apiUrl = dodamApiUrl +
+                "/bus/date?year=" + date.getYear() + "&month=" + date.getMonth().getValue() + "&day=" + date.getDayOfMonth();
             DodamBusListRequestDto dodamBusListRequestDto =
-                    restTemplate.getForEntity(dodamApiUrl + "/bus", DodamBusListRequestDto.class).getBody();
+                restTemplate.exchange(
+                        apiUrl,
+                        HttpMethod.GET,
+                        entity,
+                        DodamBusListRequestDto.class
+                ).getBody();
 
             manipulateBusPort.registerBus(dodamBusListRequestDto);
         } catch (HttpClientErrorException e) {
@@ -74,6 +91,7 @@ public class BusUseCaseImpl implements BusUseCase {
 
     @Override
     public boolean checkBusQR(TakeBusDto takeBusDto, User user) {
+        manipulateEntryPort.checkEntry(takeBusDto, user);
         return false;
     }
     @Override

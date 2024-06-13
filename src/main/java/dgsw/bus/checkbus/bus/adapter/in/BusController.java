@@ -22,11 +22,13 @@ import org.springframework.web.bind.annotation.*;
 public class BusController {
     private final BusUseCase busUseCase;
 
-    @NeedAccess(access = Roles.TEACHER)
+    @NeedAccess(access = Roles.STUDENT)
     @Operation(summary = "도담 Bus 가져오기")
     @PostMapping("/reload")
-    public ResponseEntity<DataResponse<String>> loadBus() {
-        busUseCase.reloadBus();
+    public ResponseEntity<DataResponse<String>> loadBus(
+            @RequestHeader("Authorization") String jwt
+    ) {
+        busUseCase.reloadBus(jwt);
         return DataResponse.ok("성공", "");
     }
 
