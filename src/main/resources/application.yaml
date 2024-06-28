@@ -1,3 +1,8 @@
+server:
+  port: 8080
+  servlet:
+    encoding:
+      charset: UTF-8
 spring:
   application:
     name: check-bus
@@ -8,6 +13,11 @@ spring:
     username: ${key.datasource.username}
     password: ${key.datasource.password}
     driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: false
 
 dodam-api-url: ${key.dodam-api-url}
 
