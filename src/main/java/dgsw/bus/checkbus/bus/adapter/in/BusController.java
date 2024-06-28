@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 public class BusController {
     private final BusUseCase busUseCase;
 
-    @NeedAccess(access = Roles.STUDENT)
+    @NeedAccess(access = Roles.TEACHER)
     @Operation(summary = "도담 Bus 가져오기")
     @PostMapping("/reload")
     public ResponseEntity<DataResponse<String>> loadBus(
