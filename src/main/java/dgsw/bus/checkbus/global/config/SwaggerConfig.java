@@ -5,6 +5,8 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.servers.Server;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -24,9 +26,14 @@ public class SwaggerConfig {
                         .email("cksgur0612@dgsw.hs.kr"))
                 ;
 
+        SecurityScheme auth = new SecurityScheme()
+                .type(SecurityScheme.Type.APIKEY).in(SecurityScheme.In.COOKIE).name("accessToken");
+        SecurityRequirement securityRequirement = new SecurityRequirement().addList("Auth");
+
         return new OpenAPI()
                 .addServersItem(new Server().url("/"))
-                .components(new Components())
+                .addSecurityItem(securityRequirement)
+                .components(new Components().addSecuritySchemes("Auth", auth))
                 .info(info);
     }
 }
