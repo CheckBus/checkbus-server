@@ -7,6 +7,7 @@ spring:
     url: ${key.datasource.url}
     username: ${key.datasource.username}
     password: ${key.datasource.password}
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
 dodam-api-url: ${key.dodam-api-url}
 
