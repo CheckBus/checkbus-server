@@ -20,6 +20,7 @@ public class SwaggerConfig {
                 .title("Check Bus API")
                 .version("v1")
                 .description("대소고 버스 관리 서비스")
+                .description("dauth 로그인 URL : https://dauth.b1nd.com/login?client_id=c3ec0a0c666e4132b24923d013f547dae23fde8d232746dbb0330c44f236c4ba&redirect_uri=http://crafly.com/v1/auth/code")
                 .contact(new Contact()
                         .name("dogbokchif")
                         .url("https://github.io/dogbokchif")
